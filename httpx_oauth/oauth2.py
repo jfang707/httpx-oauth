@@ -1,3 +1,4 @@
+from math import log
 import time
 from typing import (
     Any,
@@ -16,6 +17,8 @@ from urllib.parse import urlencode
 import httpx
 
 from httpx_oauth.errors import HTTPXOAuthError
+
+import logging
 
 
 class OAuth2Error(HTTPXOAuthError):
@@ -144,6 +147,11 @@ class BaseOAuth2(Generic[T]):
 
             if code_verifier:
                 data.update({"code_verifier": code_verifier})
+
+            logging.error("hit")
+            logging.error(data)
+            logging.error(self.request_headers)
+
 
             response = await client.post(
                 self.access_token_endpoint,
